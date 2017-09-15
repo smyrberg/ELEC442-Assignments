@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{mathtools}
 \usepackage{physics}
+\usepackage{siunitx}
 
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}}
@@ -84,4 +85,34 @@ where we know that $T^{-1}T$ is equal to the $4\!\cross\!4$ identity matrix. Thi
         }
     \end{aligned}
 \end{equation}
+
+\section{}
+Considering the homogenous transformation matrix
+
+\begin{equation}
+    ^0T_1 = \begin{bmatrix}
+        Q & \bm{d} \\ \bm{0}^\top & 1
+    \end{bmatrix}
+\end{equation}
+with
+\begin{equation}
+    Q = \underbrace{\begin{bmatrix}
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \\
+        -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}}_{Q_1}
+    \underbrace{\begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & -\frac{1}{2} & -\frac{\sqrt{3}}{2} \\
+        0 & \frac{\sqrt{3}}{2} & -\frac{1}{2}
+    \end{bmatrix}}_{Q_2}
+\end{equation}
+and 
+\begin{equation}
+    \bm{d} = \begin{bmatrix}
+        -\frac{5}{\sqrt{2}} \\ \frac{5}{\sqrt{2}} \\ 4
+    \end{bmatrix} \si{\cm}
+\end{equation}
+
+
 \end{document}
