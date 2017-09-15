@@ -1,0 +1,87 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\usepackage{biblatex}
+\usepackage{float}
+\usepackage[colorlinks=true, urlcolor=cyan]{hyperref}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{physics}
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}}
+
+\setlength{\parindent}{0pt} % Disable indentation
+\mathtoolsset{showonlyrefs} % Only show equation numbers on referenced equations
+
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+    \centering
+    \vfill
+    {\Large
+        {\Large ELEC 442 - Introduction to Robotics\\}
+        \vskip.5cm
+        {\huge Assignment 1\\
+        \vskip2cm
+        Sondre Myrberg\\
+        \href{mailto:sondrmyr@alumni.ubc.ca}{sondrmyr@alumni.ubc.ca}\\
+        81113433\\}
+    }
+    \vfill
+    \includegraphics[width=0.95\textwidth]{../../ubc_logo.pdf}
+    \vfill
+    \vfill
+\end{titlepage}
+\hypersetup{pageanchor=true}
+
+\section{}
+
+Given the homogenous transformation
+\begin{equation}
+    \begin{bmatrix}
+        \bm{y} \\ 1
+    \end{bmatrix} = 
+    \underbrace{\begin{bmatrix}
+        Q & \bm{d} \\ \bm{0}^\top & 1 
+    \end{bmatrix}}_{T}
+    \begin{bmatrix}
+        \bm{x} \\ 1
+    \end{bmatrix}
+\end{equation}
+where $Q$ and $\bm{d}$ accounts for rotation and translation, respectively. We have that the inverse
+is given by 
+\begin{equation}
+        T^{-1} = \begin{bmatrix}
+            \tilde{Q} & \tilde{\bm{d}} \\ \bm{0}^\top & 1
+        \end{bmatrix}
+\end{equation}
+where we know that $T^{-1}T$ is equal to the $4\!\cross\!4$ identity matrix. This yields
+\begin{equation}
+    \begin{aligned}
+        T^{-1}T &= \begin{bmatrix}
+             \tilde{Q} & \tilde{\bm{d}} \\ \bm{0}^\top & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            Q & \bm{d} \\ \bm{0}^\top & 1
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            \tilde{Q}Q & \tilde{Q}\bm{d} + \tilde{\bm{d}} \\ \bm{0}^\top & 1
+        \end{bmatrix} = \mathbf{I}_{4\cross4}\\
+        \implies &\begin{cases}
+            \tilde{Q}Q &= \mathbf{I}_{3\cross3} \\
+             \tilde{Q}\bm{d} + \tilde{\bm{d}} &= \bm{0}
+        \end{cases}\\
+        \implies &\begin{cases}
+            \tilde{Q} &= Q^{-1} = Q^\top \\
+            \tilde{\bm{d}} &= -\tilde{Q}\bm{d} = -Q^\top \bm{d}
+        \end{cases}\\
+        \implies T^{-1} &=\underline{ \begin{bmatrix}
+            Q^\top & -Q^\top \bm{d} \\ \bm{0} & 1
+        \end{bmatrix}
+        }
+    \end{aligned}
+\end{equation}
+\end{document}
