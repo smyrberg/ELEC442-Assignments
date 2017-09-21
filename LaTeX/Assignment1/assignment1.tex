@@ -3,9 +3,11 @@
 \usepackage{bm}
 \usepackage{biblatex}
 \usepackage{float}
-\usepackage[colorlinks=true, urlcolor=cyan]{hyperref}
+\usepackage[colorlinks=true, allcolors=black, urlcolor=cyan]{hyperref}
 \usepackage{graphicx}
 \usepackage{mathtools}
+\usepackage[framed,numbered]{matlab-prettifier}
+\usepackage{mcode}
 \usepackage{physics}
 \usepackage{siunitx}
 
@@ -14,6 +16,10 @@
 
 \setlength{\parindent}{0pt} % Disable indentation
 \mathtoolsset{showonlyrefs} % Only show equation numbers on referenced equations
+
+\def\undertilde#1{\mathord{\vtop{\ialign{##\crcr
+$\hfil\displaystyle{#1}\hfil$\crcr\noalign{\kern1.5pt\nointerlineskip}
+$\hfil\tilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this undertilde
 
 
 \begin{document}
@@ -38,7 +44,7 @@
 \end{titlepage}
 \hypersetup{pageanchor=true}
 
-\section{}
+\section{}  
 
 Given the homogenous transformation
 \begin{equation}
@@ -80,7 +86,7 @@ where we know that $T^{-1}T$ is equal to the $4\!\cross\!4$ identity matrix. Thi
             \tilde{\bm{d}} &= -\tilde{Q}\bm{d} = -Q^\top \bm{d}
         \end{cases}\\
         \implies T^{-1} &=\underline{ \begin{bmatrix}
-            Q^\top & -Q^\top \bm{d} \\ \bm{0} & 1
+            Q^\top & -Q^\top \bm{d} \\ \bm{0}^\top & 1
         \end{bmatrix}
         }
     \end{aligned}
@@ -114,4 +120,25 @@ and
     \end{bmatrix} \si{\cm}
 \end{equation}
 
-\end{document}\grid
+\subsection{}
+
+\subsection{}
+For the point represented in coordinate system 1 by $\undertilde{\bm{x}} = \begin{bmatrix} 1&0&0 \end{bmatrix}^\top\si{\cm} $ we get the representation in system 0 given by
+\begin{equation}
+    \begin{aligned}
+        \begin{bmatrix}
+            ^0 \bm{x} \\ 1
+        \end{bmatrix} &= 
+        \prescript{0}{}{T}_1 \begin{bmatrix}
+            ^1 \bm{x} \\ 1 
+        \end{bmatrix}\\
+        &= 
+    \end{aligned}
+\end{equation}
+
+\section{}
+A MATLAB fuction named \mcode{DH_homog} is implemented with the code shown in \autoref{lst:ex3}.
+\lstinputlisting[style=Matlab-editor, caption=MATLAB code to generate homogenous transformation matrix based on the Denavit-Hartenberg convention, label=lst:ex3]{../../MATLAB/Assignment1/DH_homog.m}
+
+
+\end{document}
