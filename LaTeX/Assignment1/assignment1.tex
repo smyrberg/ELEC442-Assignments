@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{scrartcl}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{bm}
 \usepackage{biblatex}
@@ -12,7 +12,11 @@
 \usepackage{siunitx}
 
 \renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}}
+\renewcommand{\thesubsection}{\arabic{section}.\alph{subsection})}
+
+\title{Assignment 1}
+\subtitle{ELEC 442 - Introduction to Robotics}
+\author{Sondre Myrberg}
 
 \setlength{\parindent}{0pt} % Disable indentation
 \mathtoolsset{showonlyrefs} % Only show equation numbers on referenced equations
@@ -26,17 +30,10 @@ $\hfil\tilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this unde
 
 \hypersetup{pageanchor=false}
 \begin{titlepage}
-    \centering
+    \maketitle
     \vfill
-    {\Large
-        {\Large ELEC 442 - Introduction to Robotics\\}
-        \vskip.5cm
-        {\huge Assignment 1\\
-        \vskip2cm
-        Sondre Myrberg\\
-        \href{mailto:sondrmyr@alumni.ubc.ca}{sondrmyr@alumni.ubc.ca}\\
-        81113433\\}
-    }
+    \vfill
+    \vfill
     \vfill
     \includegraphics[width=0.95\textwidth]{../../ubc_logo.pdf}
     \vfill
@@ -121,6 +118,59 @@ and
 \end{equation}
 
 \subsection{}
+By obserwing the rotation matrices $Q_1$ and $Q_2$ we see that $Q_1$ is a simple rotation around the $\bm{k}$-axis. The angle of this rotation is given by $\theta = \arccos\left({\tfrac{1}{\sqrt{2}}}\right) = \frac{\pi}{4}$. $Q_2$ is a simple rotation arond the $\bm{i}$-axis and the rotation angle is given by $\alpha = \arccos{\left(-\frac{1}{2} \right)} = \frac{2\pi}{3}$. To determine $d_1$ and $a_1$ we recognize that a homogenous transformation matrix can be written ass the product of four transformation matrices; angle, offset, length and twist. This gives us
+\begin{equation}
+    \begin{aligned}
+        \prescript{0}{}{T}_1 &= \begin{bmatrix}
+            Q & \bm{d} \\ 0^\top & 1
+        \end{bmatrix} = 
+        \underbrace{\begin{bmatrix}
+            \exp(\theta \bm{k}\cross) & \bm{0} \\ \bm{0}^\top & 1 
+        \end{bmatrix}}_{\text{angle}}
+        \underbrace{\begin{bmatrix}
+            \bm{I} & d \bm{k} \\ \bm{0}^\top & 1
+        \end{bmatrix}}_{\text{offset}}
+        \underbrace{\begin{bmatrix}
+            \bm{I} & a \bm{i} \\ \bm{0}^\top & 1
+        \end{bmatrix}}_{\text{length}}
+        \underbrace{\begin{bmatrix}
+            \exp(\alpha \bm{i}\cross) & \bm{0} \\ \bm{0}^\top & 1
+        \end{bmatrix}}_{\text{offset}}\\
+        &= \begin{bmatrix}
+            \exp(\theta \bm{k}\!\cross + \alpha \bm{i}\cross) & \exp(\theta \bm{k}\cross)(a \bm{i} + d \bm{k}) \\
+            \bm{0}^\top & 1
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            Q & \bm{d} \\ \bm{0}^\top & 1
+        \end{bmatrix}\\
+        \implies & \exp(\theta \bm{k}\cross)(a \bm{i} + d \bm{k}) = \begin{bmatrix}
+            -\frac{2}{\sqrt{2}} \\ \frac{5}{\sqrt{2}} \\ 4
+        \end{bmatrix}\\
+        \implies &  \exp(\theta \bm{k}\cross) \begin{bmatrix}
+            a \\ 0 \\ d
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \\
+            -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \\
+            0 & 0 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            a \\ 0 \\ d
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            \frac{a}{\sqrt{2}} \\ -\frac{a}{\sqrt{2}} \\ d
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            -\frac{5}{\sqrt{2}} \\ \frac{5}{\sqrt{2}} \\ 4
+        \end{bmatrix}\\
+        \implies & \begin{bmatrix}
+            a \\ d
+        \end{bmatrix} = \begin{bmatrix}
+            -5 \\ 4
+        \end{bmatrix}
+    \end{aligned}
+\end{equation}
+And we have numeric values for all our four DH parameters.
 
 \subsection{}
 For the point represented in coordinate system 1 by $\undertilde{\bm{x}} = \begin{bmatrix} 1&0&0 \end{bmatrix}^\top\si{\cm} $ we get the representation in system 0 given by
