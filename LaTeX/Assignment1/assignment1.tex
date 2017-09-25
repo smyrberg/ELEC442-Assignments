@@ -11,8 +11,10 @@
 \usepackage{physics}
 \usepackage{siunitx}
 
+\usepackage{todonotes}
+
 \renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\arabic{section}.\alph{subsection})}
+\renewcommand{\thesubsection}{\arabic{section}\alph{subsection})}
 
 \title{Assignment 1}
 \subtitle{ELEC 442 - Introduction to Robotics}
@@ -63,7 +65,7 @@ is on the form
         \end{bmatrix}
 \end{equation}
 where we know that $T^{-1}T$ is equal to the $4\!\cross\!4$ identity matrix. This yields
-\begin{equation}
+\begin{equation} \label{eq:invtrans}
     \begin{aligned}
         T^{-1}T &= \begin{bmatrix}
              \tilde{Q} & \tilde{\bm{d}} \\ \bm{0}^\top & 1
@@ -163,11 +165,10 @@ By obserwing the rotation matrices $Q_1$ and $Q_2$ we see that $Q_1$ is a simple
         \begin{bmatrix}
             -\frac{5}{\sqrt{2}} \\ \frac{5}{\sqrt{2}} \\ 4
         \end{bmatrix}\\
-        \implies & \begin{bmatrix}
-            a \\ d
-        \end{bmatrix} = \begin{bmatrix}
-            -5 \\ 4
-        \end{bmatrix}
+        \implies & \begin{cases}
+            a = -5\\
+            d = 4
+        \end{cases} 
     \end{aligned}
 \end{equation}
 And we have numeric values for all our four DH parameters.
@@ -182,13 +183,57 @@ For the point represented in coordinate system 1 by $\undertilde{\bm{x}} = \begi
         \prescript{0}{}{T}_1 \begin{bmatrix}
             ^1 \bm{x} \\ 1 
         \end{bmatrix}\\
-        &= 
+        &= \begin{bmatrix}
+            \frac{1}{\sqrt{2}} & -\frac{1}{2\sqrt{2}} & -\frac{\sqrt{3}}{2\sqrt{2}} & -\frac{5}{\sqrt{2}}\\
+            -\frac{1}{\sqrt{2}} & -\frac{1}{2\sqrt{2}} & -\frac{\sqrt{3}}{2\sqrt{2}} & \frac{5}{\sqrt{2}}\\
+            0 & \frac{\sqrt{3}}{2} & -\frac{1}{2} & 4 \\
+            0 & 0 & 0 & 1
+        \end{bmatrix} \begin{bmatrix}
+            1 \\ 0 \\ 0 \\ 1
+        \end{bmatrix}\\
+        &= \begin{bmatrix}
+            \frac{6}{\sqrt{2}} \\ -\frac{6}{\sqrt{2}} \\ 4 \\ 1
+        \end{bmatrix} \\
+        \implies \prescript{0}{}{\undertilde{\bm{x}}} &= \begin{bmatrix}
+             \frac{6}{\sqrt{2}} \\ -\frac{6}{\sqrt{2}} \\ 4
+        \end{bmatrix} \si{\cm}
     \end{aligned}
 \end{equation}
 
+\subsection{}
+For the opposite case, that we have a point represented in cooridinate system 0 by $\undertilde{\bm{x}} = \begin{bmatrix} 1&0&0 \end{bmatrix}^\top\si{\cm}$ we apply the inverse transformation matrix that is on the form we found in \eqref{eq:invtrans}. This gives
+\begin{equation}
+    \begin{aligned}
+        \begin{bmatrix}
+            \prescript{1}{}{\bm{x}} \\ 1
+        \end{bmatrix} &= \prescript{0}{}{T}_1^{-1}
+        \begin{bmatrix}
+            \prescript{0}{}{\bm{x}} \\ 1
+        \end{bmatrix}\\
+        &= \begin{bmatrix}
+            \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & 0 & 5 \\
+            -\frac{1}{2\sqrt{2}} & -\frac{1}{2\sqrt{2}} & \frac{\sqrt{3}}{2} & -2\sqrt{3}\\
+            -\frac{\sqrt{3}}{2\sqrt{2}} & -\frac{\sqrt{3}}{2\sqrt{2}} & -\frac{1}{2} & 4\\
+            0 & 0 & 0 & 1
+        \end{bmatrix}\begin{bmatrix}
+            1 \\ 0 \\ 0 \\ 1
+        \end{bmatrix}\\
+        &= \begin{bmatrix}
+            \frac{10+\sqrt{2}}{2} \\ -\frac{8\sqrt{3} + \sqrt{2}}{4} \\ \frac{16-\sqrt{6}}{4} \\ 1
+        \end{bmatrix}\\
+        \implies \prescript{1}{}{\undertilde{\bm{x}}} &= \begin{bmatrix}
+            \frac{10+\sqrt{2}}{2} \\ -\frac{8\sqrt{3} + \sqrt{2}}{4} \\ \frac{16-\sqrt{6}}{4}
+        \end{bmatrix} \si{\cm}
+    \end{aligned}
+\end{equation}
+
+\subsection{}
+\todo{Task 2d)}
+
+
 \section{}
 A MATLAB fuction named \mcode{DH_homog} is implemented with the code shown in \autoref{lst:ex3}.
-\lstinputlisting[style=Matlab-editor, caption=MATLAB code to generate homogenous transformation matrix based on the Denavit-Hartenberg convention, label=lst:ex3]{../../MATLAB/Assignment1/DH_homog.m}
+\lstinputlisting[style=Matlab-editor, caption=MATLAB code to generate homogenous transformation matrix based on the Denavit-Hartenberg convention, captionpos = b, label=lst:ex3]{../../MATLAB/Assignment1/DH_homog.m}
 
 
 \end{document}
