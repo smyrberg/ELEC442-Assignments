@@ -2,6 +2,7 @@ close all
 clear all
 clc
 
+%% 5d
 angle1 = 'Type the first joint angle in degrees: ';
 angle2 = 'And now the second: ';
 angle3 = 'Third: ';
@@ -23,4 +24,6 @@ T4 = DH_homog(theta4, 433.07, 0, pi/2);
 T5 = DH_homog(theta5, 0, 0, -pi/2);
 T6 = DH_homog(theta6, 60, 0, 0);
 
-T= T1*T2*T3*T4*T5*T6;
+T= T1*T2*T3*T4*T5*T6
+
+%% 5e
