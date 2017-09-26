@@ -146,7 +146,7 @@ By obserwing the rotation matrices $Q_1$ and $Q_2$ we see that $Q_1$ is a simple
             Q & \bm{d} \\ \bm{0}^\top & 1
         \end{bmatrix}\\
         \implies & \exp(\theta \bm{k}\cross)(a \bm{i} + d \bm{k}) = \begin{bmatrix}
-            -\frac{2}{\sqrt{2}} \\ \frac{5}{\sqrt{2}} \\ 4
+            -\frac{5}{\sqrt{2}} \\ \frac{5}{\sqrt{2}} \\ 4
         \end{bmatrix}\\
         \implies &  \exp(\theta \bm{k}\cross) \begin{bmatrix}
             a \\ 0 \\ d
@@ -228,7 +228,31 @@ For the opposite case, that we have a point represented in cooridinate system 0 
 \end{equation}
 
 \subsection{}
-\todo{Task 2d)}
+The angular velocity vector represented in coordinate system 0 by $\begin{bmatrix}
+    1 & 0 & 0
+\end{bmatrix}^\top$ is given by 
+\begin{equation}
+    \begin{aligned}
+        \begin{bmatrix}
+        \bm{\omega}_{1,1} \\ 0
+        \end{bmatrix} &= \prescript{0}{}{T}_1^{-1} \begin{bmatrix}\bm{\omega}_{1,0}\\ 0 \end{bmatrix}\\
+        &= \begin{bmatrix}
+            \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & 0 & 5 \\
+            -\frac{1}{2\sqrt{2}} & -\frac{1}{2\sqrt{2}} & \frac{\sqrt{3}}{2} & -2\sqrt{3}\\
+            -\frac{\sqrt{3}}{2\sqrt{2}} & -\frac{\sqrt{3}}{2\sqrt{2}} & -\frac{1}{2} & 4\\
+            0 & 0 & 0 & 1
+        \end{bmatrix} \begin{bmatrix}
+            1 \\ 0 \\0 \\0
+        \end{bmatrix}\\
+        &= \begin{bmatrix}
+            \frac{1}{\sqrt{2}} \\  -\frac{1}{2\sqrt{2}} \\ -\frac{\sqrt{3}}{2\sqrt{2}} \\ 0
+        \end{bmatrix}\\
+        \implies \bm{\omega}_{1,1} &= \begin{bmatrix}
+            \frac{1}{\sqrt{2}} \\  -\frac{1}{2\sqrt{2}} \\ -\frac{\sqrt{3}}{2\sqrt{2}}
+        \end{bmatrix}
+    \end{aligned}
+\end{equation}
+
 
 
 \section{}
@@ -236,7 +260,14 @@ A MATLAB fuction named \mcode{DH_homog} is implemented with the code shown in \a
 \lstinputlisting[style=Matlab-editor, caption=MATLAB code to generate homogenous transformation matrix based on the Denavit-Hartenberg convention, captionpos = b, label=lst:ex3]{../../MATLAB/Assignment1/DH_homog.m}
 
 \section{}
-\todo{Har sketcha i onenote, sjekk om det er riktig måte å gjøre det på}
+A sketch of the ``home'' position can be found in \autoref{fig:4}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width = .95\textwidth]{4.PNG}
+    \caption{Sketch of ``home'' position based on the DH-table provided}
+    \label{fig:4}
+\end{figure}
 
 \section{}
 \subsection{}
