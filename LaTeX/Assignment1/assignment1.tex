@@ -25,7 +25,7 @@
 
 \def\undertilde#1{\mathord{\vtop{\ialign{##\crcr
 $\hfil\displaystyle{#1}\hfil$\crcr\noalign{\kern1.5pt\nointerlineskip}
-$\hfil\tilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this undertilde
+$\hfil\widetilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this undertilde
 
 
 \begin{document}
@@ -121,7 +121,7 @@ and
 
 \subsection{}
 By obserwing the rotation matrices $Q_1$ and $Q_2$ we see that $Q_1$ is a simple rotation around the $\bm{k}$-axis. The angle of this rotation is given by $\theta = \arccos\left({\tfrac{1}{\sqrt{2}}}\right) = \frac{\pi}{4}$. $Q_2$ is a simple rotation arond the $\bm{i}$-axis and the rotation angle is given by $\alpha = \arccos{\left(-\frac{1}{2} \right)} = \frac{2\pi}{3}$. To determine $d_1$ and $a_1$ we recognize that a homogenous transformation matrix can be written ass the product of four transformation matrices; angle, offset, length and twist. This gives us
-\begin{equation}
+\begin{equation}\label{eq:2a}
     \begin{aligned}
         \prescript{0}{}{T}_1 &= \begin{bmatrix}
             Q & \bm{d} \\ 0^\top & 1
@@ -271,13 +271,40 @@ A sketch of the ``home'' position can be found in \autoref{fig:4}.
 
 \section{}
 \subsection{}
-The different coordinate frames are sketched in \autoref{fig:5a}.
+The different coordinate frames are sketched and the completed table is found in \autoref{fig:5a}. I see now that it should have been in degrees, but I have filled the table with the radian values.   
 \begin{figure}[h!]
     \centering
     \includegraphics[width = .95\textwidth]{5a.PNG}
     \caption{Sketch of the coordinate frames according to the DH-convention}
     \label{fig:5a}
 \end{figure}
+
+\subsection{}
+We know that the relationship between base $\{\undertilde{\bm{o}_0} , \underline{C}_0\}$ and the end effector $\{\undertilde{\bm{o}_6} , \underline{C}_6\}$ is given by
+\begin{equation}
+    \begin{aligned}
+        \begin{bmatrix}
+            \underline{C}_n & \undertilde{\bm{o}_n} \\
+            \bm{0}^\top & 1 
+        \end{bmatrix}&=
+        \begin{bmatrix}
+            \underline{C}_0 & \undertilde{\bm{o}_0} \\
+            \bm{0}^\top & 1
+        \end{bmatrix} \prescript{0}{}{T}_1(q_1) \prescript{1}{}{T}_2(q_2) \hdots \prescript{n-1}{}{T}_n(q_n) \\
+        \implies 
+        \begin{bmatrix}
+            \underline{C}_6 & \undertilde{\bm{o}_6} \\
+            \bm{0}^\top & 1 
+        \end{bmatrix}&=
+        \begin{bmatrix}
+            \underline{C}_0 & \undertilde{\bm{o}_0} \\
+            \bm{0}^\top & 1
+        \end{bmatrix} \prescript{0}{}{T}_6\\
+    \end{aligned}
+\end{equation}
+where $\prescript{0}{}{T}_6$ is a series of transformations on the form as shown in \eqref{eq:2a}, and we have the relationship between he base and the end effector.
+
+\subsection{}
 
 
 \end{document}
