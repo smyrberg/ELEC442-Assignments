@@ -90,6 +90,7 @@ where we know that $T^{-1}T$ is equal to the $4\!\cross\!4$ identity matrix. Thi
         }
     \end{aligned}
 \end{equation}
+For $T^{-1}$ to exist obvously $T$ must be invertible, and for this to be fulfilled we require full rank. In this case $\rank(T) = 4$ since $\rank(Q) = 3 \enspace \forall Q$ as $Q$ is a rotation matrix, and the $T_{4,4} = 1 \enspace \forall T$. Thus $\forall \{Q, \bm{d}\}$ we have $\rank(T) = 4$ and $T^{-1}$ exists.
 
 \section{}
 Considering the homogenous transformation matrix
@@ -192,10 +193,10 @@ For the point represented in coordinate system 1 by $\undertilde{\bm{x}} = \begi
             1 \\ 0 \\ 0 \\ 1
         \end{bmatrix}\\
         &= \begin{bmatrix}
-            \frac{6}{\sqrt{2}} \\ -\frac{6}{\sqrt{2}} \\ 4 \\ 1
+            \frac{4}{\sqrt{2}} \\ -\frac{4}{\sqrt{2}} \\ 4 \\ 1
         \end{bmatrix} \\
         \implies \prescript{0}{}{\undertilde{\bm{x}}} &= \begin{bmatrix}
-             \frac{6}{\sqrt{2}} \\ -\frac{6}{\sqrt{2}} \\ 4
+             \frac{4}{\sqrt{2}} \\ -\frac{4}{\sqrt{2}} \\ 4
         \end{bmatrix} \si{\cm}
     \end{aligned}
 \end{equation}
@@ -268,6 +269,7 @@ A sketch of the ``home'' position can be found in \autoref{fig:4}.
     \caption{Sketch of ``home'' position based on the DH-table provided}
     \label{fig:4}
 \end{figure}
+\todo{Find the Jacobian and how to do this}
 
 \section{}
 \subsection{}
@@ -302,9 +304,10 @@ We know that the relationship between base $\{\undertilde{\bm{o}_0} , \underline
         \end{bmatrix} \prescript{0}{}{T}_6\\
     \end{aligned}
 \end{equation}
-where $\prescript{0}{}{T}_6$ is a series of transformations on the form as shown in \eqref{eq:2a}, and we have the relationship between he base and the end effector.
+where $\prescript{0}{}{T}_6$ is a series of transformations on the form as shown in the first line of \eqref{eq:2a}, and we have the relationship between he base and the end effector.
 
 \subsection{}
+\todo{Do exercise 5cde}
 
 
 \end{document}
