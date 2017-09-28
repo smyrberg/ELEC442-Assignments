@@ -21,7 +21,7 @@ end
 [T5,C45] = DH_homog(theta(5), 0, 0, -pi/2);
 [T6,C56] = DH_homog(theta(6), 60, 0, 0);
 T= T1*T2*T3*T4*T5*T6;
-
+spy
 C0 = eye(3);
 C1 = C0*C01;
 C2 = C1*C12;
