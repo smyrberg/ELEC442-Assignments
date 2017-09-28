@@ -260,16 +260,44 @@ The angular velocity vector represented in coordinate system 0 by $\begin{bmatri
 A MATLAB fuction named \mcode{DH_homog} is implemented with the code shown in \autoref{lst:ex3}. This function has two return values; the homogenous transformation matrix and the rotation matrix. 
 \lstinputlisting[style=Matlab-editor, caption=MATLAB code to generate homogenous transformation matrix based on the Denavit-Hartenberg convention, captionpos = b, label=lst:ex3]{../../MATLAB/Assignment1/DH_homog.m}
 
-\section{}
+\section{} %Ex4
 A sketch of the ``home'' position can be found in \autoref{fig:4}.
+
+The Jacobian for a manipulator like this can generally be expressed as
+\begin{equation}
+    \begin{aligned}
+        \underline{J}_{i-1} = 
+        \begin{cases}
+            \begin{bmatrix}
+                \underline{\bm{k}}_{i-1}\cross (\undertilde{\bm{o}_n} - \undertilde{\bm{o}_{i-1}}) \\ \underline{\bm{k}}_{i-1}
+            \end{bmatrix} &\text{when joint $i$ is revolute} \\
+            \begin{bmatrix}
+                \underline{\bm{k}}_{i-1} \\ \bm{0}
+            \end{bmatrix} &\text{when joint $i$ is prismatic}
+        \end{cases}
+    \end{aligned}
+\end{equation}
+as given in (10) in Salcudean's notes. This gives us the Jacobian
+\begin{equation}
+    \begin{aligned}
+        \underline{J} = 
+        \begin{bmatrix}
+            \underline{J}_0 & \underline{J}_1 & \underline{J}_2
+        \end{bmatrix} &=
+        \begin{bmatrix}
+            \underline{\bm{k}}_{0}\cross (\undertilde{\bm{o}_3} - \undertilde{\bm{o}_{0}}) & \underline{\bm{k}}_{1}\cross (\undertilde{\bm{o}_3} - \undertilde{\bm{o}_{1}}) & \underline{\bm{k}}_{2} \\
+            \underline{\bm{k}}_{0} & \underline{\bm{k}}_{1} & 0
+        \end{bmatrix}
+    \end{aligned}
+\end{equation}
+We know that sigularities occur every time $\underline{J}$ loses rank. This happens when $\underline{\bm{k}}_{0}\cross(\undertilde{\bm{o}_3}-\undertilde{\bm{o}_{0}})$, $ \underline{\bm{k}}_{1}\cross (\undertilde{\bm{o}_3} - \undertilde{\bm{o}_{1}})$ and $\underline{\bm{k}}_{2}$ are coplanar. By inspection we see that this happens when $\theta_2 = n\pi, \enspace \pi \in \mathbb{Z}$. At these instances $\theta_1$ and $\theta_2$ creates the same instantaneous movement. Singularities will also occur when $\theta_2 = \tfrac{\pi}{2} + n\pi, \enspace \pi \in \mathbb{Z}$. In this case $\theta_1$ and $d_3$ will create the same instantaneous movement, hence singularities occur when $\theta_2 = n\tfrac{\pi}{2}, \enspace n \in \mathbb{Z}$.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width = .95\textwidth]{4.PNG}
+    \includegraphics[width = .95\textwidth]{4_new.PNG}
     \caption{Sketch of ``home'' position based on the DH-table provided}
     \label{fig:4}
 \end{figure}
-\todo{Find the Jacobian and how to do this}
 
 \section{}
 \subsection{}
