@@ -1,5 +1,6 @@
 \documentclass[a4paper]{scrartcl}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{array,arydshln}
 \usepackage{bm}
 \usepackage{biblatex}
 \usepackage{float}
@@ -264,7 +265,7 @@ A MATLAB fuction named \mcode{DH_homog} is implemented with the code shown in \a
 A sketch of the ``home'' position can be found in \autoref{fig:4}.
 
 The Jacobian for a manipulator like this can generally be expressed as
-\begin{equation}
+\begin{equation} \label{eq:genrealJacobian}
     \begin{aligned}
         \underline{J}_{i-1} = 
         \begin{cases}
@@ -350,15 +351,42 @@ where $\prescript{0}{}{T}_6$ is a series of transformations on the form as shown
     \end{aligned}
 \end{equation}
 
-\subsection{}
-\todo{Do exercise 5ce}
+\subsection{} %5c
+Using the same recipe as in \eqref{eq:genrealJacobian} we can derive the Jacobian for the Puma 560 can be found by
+\begin{equation}
+    \begin{aligned}
+         \underline{J} &=
+         \begin{bmatrix}
+            \underline{\bm{k}}_{0}\!\cross\! (\undertilde{\bm{o}_6} - \undertilde{\bm{o}_{0}}) & \underline{\bm{k}}_{1}\!\cross\! (\undertilde{\bm{o}_6} - \undertilde{\bm{o}_{0}}) &
+            \underline{\bm{k}}_{2}\!\cross\! (\undertilde{\bm{o}_6} - \undertilde{\bm{o}_{2}}) & \underline{\bm{k}}_{3}\!\cross\! (\undertilde{\bm{o}_6} - \undertilde{\bm{o}_{3}}) & 
+            \underline{\bm{k}}_{4}\!\cross\! (\undertilde{\bm{o}_6} - \undertilde{\bm{o}_{4}}) & \underline{\bm{k}}_{5}\!\cross\! (\undertilde{\bm{o}_6} - \undertilde{\bm{o}_{4}}) \\
+            \underline{\bm{k}}_{0} & \underline{\bm{k}}_{1} & \underline{\bm{k}}_{2} & \underline{\bm{k}}_{3} & \underline{\bm{k}}_{4} & \underline{\bm{k}}_{5}
+         \end{bmatrix} \\
+         &\text{Doing the row operation } \text{row}1 \leftarrow \text{row}1 + (\undertilde{\bm{o}_6} - \undertilde{\bm{o}_{4}}) \cross \text{row}2 \text{ implies}\\
+         \underline{J} &\sim
+         \left[\begin{array}{cccc:cc}
+             \underline{\bm{k}}_{0}\!\cross\! (\undertilde{\bm{o}_4} - \undertilde{\bm{o}_{0}}) & \underline{\bm{k}}_{1}\!\cross\! (\undertilde{\bm{o}_4} - \undertilde{\bm{o}_{0}}) &
+             \underline{\bm{k}}_{2}\!\cross\! (\undertilde{\bm{o}_4} - \undertilde{\bm{o}_{2}}) & \underline{\bm{k}}_{3}\!\cross\! (\undertilde{\bm{o}_4} - \undertilde{\bm{o}_{3}}) &
+             0 & 0  \\
+             \hdashline
+            \underline{\bm{k}}_{0} & \underline{\bm{k}}_{1} & \underline{\bm{k}}_{2} & \underline{\bm{k}}_{3} & \underline{\bm{k}}_{4} & \underline{\bm{k}}_{5}
+         \end{array}\right] \\
+         &\sim \left[\begin{array}{c:c}
+            J_{11} & \bm{0} \\
+            \hdashline  J_{21} &  J_{22}
+         \end{array}\right]
+    \end{aligned}
+\end{equation}
+Based on this Jacobian we see that we will not get any wrist singularities with this setup, based on that $\underline{\bm{k}}_4$ will never be parallell to $\underline{\bm{k}}_5$ in $J_{22}$, but when we look at the $J_{11}$ part we immediately see that singularities occur. As singularities occur when the elements in $J_{11}$ are coplanar, and since we have $4$ $3\!\!\cross\!\!1$ vectors they will be linearly dependent, hence we get singularities. These singularities will occur when $\bm{o}_4$ align with the $\bm{k}_0$ or $\bm{i}_0$ axes. These are respectively called shoulder and elbow singularities. When hitting the shoulder singularity we lose the ability to move the point $\bm{o}_4$ parallell to the $\bm{j}_0$ axis, and when the elbow singularity occur we lose the ability to move positively along the $\bm{i}_0$ axis.
+
 
 \subsection{}\label{ssec:5d} %5d
-The MATLAB code used to in \autoref{ssec:5d} is listed in \autoref{lst:5d1}. The user is prompted for six joint avariables, and the total homogenous transformation matrix is calculated aswell as the link origins is plotted by using the \mcode{plot3} command. As \autoref{fig:5d1} shows there are 5 different link origins, as expected by \eqref{eq:5btransformationchain} since origin 0 and 1, and 4 and 5 is the same point. There must however be a slight mistake somwhere in my code, as origin 2 gets moved $\sim 2500 \si{\mm}$ insted of $431.8\si{\mm}$, but I can't find it. The other origins does however seem to fit well with what's expected.
+\todo{put in jacobian calculation in code, do e)}
+The MATLAB code used to in \autoref{ssec:5d} is listed in \autoref{lst:5d1}. The user is prompted for six joint avariables, and the total homogenous transformation matrix is calculated aswell as the link origins is plotted by using the \mcode{plot3} command. As \autoref{fig:5d1} shows there are 5 different link origins, as expected by \eqref{eq:5btransformationchain} since origin 0 and 1, and 4 and 5 is the same point. These points are he origins when $\theta_i = 0 \enspace \forall i$.
 \lstinputlisting[style = Matlab-editor, firstline=5, lastline = 50, caption = MATLAB code used to generate homogenous transformation matrix for angles chosen by the user, captionpos = b, label = lst:5d1]{../../MATLAB/Assignment1/Ex5.m}
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width = .95\textwidth]{5d1.eps}
+    \includegraphics[width = .95\textwidth]{5d_new.eps}
     \caption{Location of the link origins with $\theta_i = 0 \enspace \forall i$}
     \label{fig:5d1}
 \end{figure}
