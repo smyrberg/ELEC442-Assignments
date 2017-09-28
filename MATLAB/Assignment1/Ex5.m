@@ -9,8 +9,8 @@ k = [0;0;1];
 
 inputangle = ['1 ';'2 ';'3 ';'4 ';'5 ';'6 '];
 theta = [0 0 0 0 0 0];
-for i = 1:6
-    theta(i) = degtorad(input(inputangle(i)));
+for n = 1:6
+    theta(n) = degtorad(input(inputangle(n)));
 end
 
 
@@ -45,7 +45,7 @@ z = [o0(3) o1(3) o2(3) o3(3) o4(3) o5(3) o6(3)];
 figure
     hold on; view(3); grid on;
     plot3(x,y,z, '*');
-    xlabel('$x$-coordinate', 'interpreter', 'latex');xlim([-500 3500]);
+    xlabel('$x$-coordinate', 'interpreter', 'latex');xlim([-50 1000]);
     ylabel('$y$-coordinate', 'interpreter', 'latex');
     zlabel('$z$-coordinate', 'interpreter', 'latex');zlim([-5 25]);
 
