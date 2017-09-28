@@ -201,3 +201,4 @@ TSWLatexianTemp*
 ## MATLAB
 # Remove autosave files from MATLAB scripts
 *.asv 
+*.m~
