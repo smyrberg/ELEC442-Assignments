@@ -3,6 +3,7 @@
 \usepackage{array,arydshln}
 \usepackage{bm}
 \usepackage{biblatex}
+\usepackage{caption}
 \usepackage{float}
 \usepackage[colorlinks=true, allcolors=black, urlcolor=cyan]{hyperref}
 \usepackage{graphicx}
@@ -11,15 +12,16 @@
 \usepackage{mcode}
 \usepackage{physics}
 \usepackage{siunitx}
+\usepackage{subcaption}
 
-\usepackage{todonotes}
+%\usepackage{todonotes}
 
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{section}\alph{subsection})}
 
 \title{Assignment 1}
 \subtitle{ELEC 442 - Introduction to Robotics}
-\author{Sondre Myrberg}
+\author{Sondre Myrberg (81113433) \and Ola Helbaek (68776772)}
 
 \setlength{\parindent}{0pt} % Disable indentation
 \mathtoolsset{showonlyrefs} % Only show equation numbers on referenced equations
@@ -122,7 +124,7 @@ and
 \end{equation}
 
 \subsection{}
-By obserwing the rotation matrices $Q_1$ and $Q_2$ we see that $Q_1$ is a simple rotation around the $\bm{k}$-axis. The angle of this rotation is given by $\theta = \arccos\left({\tfrac{1}{\sqrt{2}}}\right) = \frac{\pi}{4}$. $Q_2$ is a simple rotation arond the $\bm{i}$-axis and the rotation angle is given by $\alpha = \arccos{\left(-\frac{1}{2} \right)} = \frac{2\pi}{3}$. To determine $d_1$ and $a_1$ we recognize that a homogenous transformation matrix can be written ass the product of four transformation matrices; angle, offset, length and twist. This gives us
+By obserwing the rotation matrices $Q_1$ and $Q_2$ we see that $Q_1$ is a simple rotation around the $\bm{k}$-axis. The angle of this rotation is given by $\theta = \arccos\left({\tfrac{1}{\sqrt{2}}}\right) = \pm\frac{\pi}{4}$. As $\sin(-\tfrac{\pi}{4}) = -\tfrac{1}{\sqrt{2}}$ we get $\theta = -\tfrac{\pi}{4}$ $Q_2$ is a simple rotation arond the $\bm{i}$-axis and the rotation angle is given by $\alpha = \arccos{\left(-\frac{1}{2} \right)} = \frac{2\pi}{3}$. To determine $d_1$ and $a_1$ we recognize that a homogenous transformation matrix can be written ass the product of four transformation matrices; angle, offset, length and twist. This gives us
 \begin{equation}\label{eq:2a}
     \begin{aligned}
         \prescript{0}{}{T}_1 &= \begin{bmatrix}
@@ -381,9 +383,8 @@ Based on this Jacobian we see that we will not get any wrist singularities with 
 
 
 \subsection{}\label{ssec:5d} %5d
-\todo{put in jacobian calculation in code, do e)}
-The MATLAB code used to in \autoref{ssec:5d} is listed in \autoref{lst:5d1}. The user is prompted for six joint avariables, and the total homogenous transformation matrix is calculated aswell as the link origins is plotted by using the \mcode{plot3} command. As \autoref{fig:5d1} shows there are 5 different link origins, as expected by \eqref{eq:5btransformationchain} since origin 0 and 1, and 4 and 5 is the same point. These points are he origins when $\theta_i = 0 \enspace \forall i$.
-\lstinputlisting[style = Matlab-editor, firstline=5, lastline = 50, caption = MATLAB code used to generate homogenous transformation matrix for angles chosen by the user, captionpos = b, label = lst:5d1]{../../MATLAB/Assignment1/Ex5.m}
+The MATLAB code used to in \autoref{ssec:5d} is listed in \autoref{lst:5d1}. The user is prompted for six joint avariables, the Jacobian and the total homogenous transformation matrix is calculated aswell as the link origins is plotted by using the \mcode{plot3} command. As \autoref{fig:5d1} shows there are 5 different link origins, as expected by \eqref{eq:5btransformationchain} since origin 0 and 1, and 4 and 5 is the same point. These points are he origins when $\theta_i = 0 \enspace \forall i$.
+\lstinputlisting[style = Matlab-editor, caption = MATLAB code used to generate homogenous transformation matrix for angles chosen by the user, captionpos = b, label = lst:5d1]{../../MATLAB/Assignment1/Ex5.m}
 \begin{figure}[ht!]
     \centering
     \includegraphics[width = .95\textwidth]{5d_new.eps}
@@ -391,5 +392,30 @@ The MATLAB code used to in \autoref{ssec:5d} is listed in \autoref{lst:5d1}. The
     \label{fig:5d1}
 \end{figure}
 
+\subsection{} %5e
+Link origins for $\bm{q}_A = \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix}^\top$ is shown in \autoref{fig:5d1}. For  $\bm{q}_B = \begin{bmatrix}
+    0 & 0 & -90 & 0 & 0 & 180
+\end{bmatrix}^\top$ we have the link origins shown in \autoref{fig:5e1}, and for the angle set of $\bm{q}_C = \begin{bmatrix}
+    45 & -45 & 45 & 0 & -30 & 90
+\end{bmatrix}^\top$ we see the origins in \autoref{fig:5e2}.
+
+\begin{figure}[ht!]
+\centering
+    \begin{subfigure}{.8\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{5eB.eps}
+        \caption{Position of origins with angles given by $\bm{q}_B$}
+        \label{fig:5e1}
+    \end{subfigure}
+    \begin{subfigure}{.8\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{5eC.eps}
+        \caption{Position of link origins with angles given by $\bm{q}_C$}
+        \label{fig:5e2}
+    \end{subfigure}
+    \caption{Position of link origins with different link angle vectors}
+\end{figure}
 
 \end{document}
