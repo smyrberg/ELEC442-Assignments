@@ -295,9 +295,9 @@ as given in (10) in Salcudean's notes. This gives us the Jacobian
         \end{bmatrix}
     \end{aligned}
 \end{equation}
-We know that sigularities occur every time $\underline{J}$ loses rank. This happens when $\underline{\bm{k}}_{0}\cross(\undertilde{\bm{o}_3}-\undertilde{\bm{o}_{0}})$, $ \underline{\bm{k}}_{1}\cross (\undertilde{\bm{o}_3} - \undertilde{\bm{o}_{1}})$ and $\underline{\bm{k}}_{2}$ are coplanar. By inspection we see that this happens when $\theta_2 = n\pi, \enspace \pi \in \mathbb{Z}$. At these instances $\theta_1$ and $\theta_2$ creates the same instantaneous movement. Singularities will also occur when $\theta_2 = \tfrac{\pi}{2} + n\pi, \enspace \pi \in \mathbb{Z}$. In this case $\theta_1$ and $d_3$ will create the same instantaneous movement, hence singularities occur when $\theta_2 = n\tfrac{\pi}{2}, \enspace n \in \mathbb{Z}$.
+We know that sigularities occur every time $\underline{J}$ loses rank. This happens when $\underline{\bm{k}}_{0}\cross(\undertilde{\bm{o}_3}-\undertilde{\bm{o}_{0}})$, $ \underline{\bm{k}}_{1}\cross (\undertilde{\bm{o}_3} - \undertilde{\bm{o}_{1}})$ and $\underline{\bm{k}}_{2}$ are coplanar. By inspection we see that this happens when $\theta_2 = n\pi, \enspace n \in \mathbb{Z}$. At these instances $\theta_1$ and $\theta_2$ creates the same instantaneous movement. Singularities will also occur when $\theta_2 = \tfrac{\pi}{2} + n\pi, \enspace n \in \mathbb{Z}$. In this case $\theta_1$ and $d_3$ will create the same instantaneous movement, hence singularities occur when $\theta_2 = n\tfrac{\pi}{2}, \enspace n \in \mathbb{Z}$.
 
-\begin{figure}[h!]
+\begin{figure}[hb!]
     \centering
     \includegraphics[width = .95\textwidth]{4_new.PNG}
     \caption{Sketch of ``home'' position based on the DH-table provided}
@@ -316,7 +316,7 @@ The different coordinate frames are sketched and the completed table is found in
 
 \subsection{}
 We know that the relationship between base $\{\undertilde{\bm{o}_0} , \underline{C}_0\}$ and the end effector $\{\undertilde{\bm{o}_6} , \underline{C}_6\}$ is given by
-\begin{equation}
+\begin{equation}\label{eq:5rel}
     \begin{aligned}
         \begin{bmatrix}
             \underline{C}_n & \undertilde{\bm{o}_n} \\
@@ -337,23 +337,31 @@ We know that the relationship between base $\{\undertilde{\bm{o}_0} , \underline
         \end{bmatrix} \prescript{0}{}{T}_6\\
     \end{aligned}
 \end{equation}
-where $\prescript{0}{}{T}_6$ is a series of transformations on the form as shown in the first line of \eqref{eq:2a}, and we have the relationship between he base and the end effector. A chain of transformations that give the relationship between  base $\{\undertilde{\bm{o}_0} , \underline{C}_0\}$ and the end effector $\{\undertilde{\bm{o}_6} , \underline{C}_6\}$ on the form presented by Salcudean's example 2.5 is
-\begin{equation} \label{eq:5btransformationchain}
-    \begin{aligned}
-        \underline{C}_1 &= \underline{C}_0\exp\left(\theta_1 \bm{k}\cross\right)\exp\left(-\tfrac{\pi}{2}\bm{i}\cross\right) 
-        \quad& \undertilde{\bm{o}_1} &=\undertilde{\bm{o}_0} \\
-        \underline{C}_2 &= \underline{C}_1\exp\left(\theta_2 \bm{k}\cross\right)\exp\left(\pi\bm{i}\cross\right) 
-        \quad& \undertilde{\bm{o}_2} &=\undertilde{\bm{o}_1} + \underline{C}_1\exp\left(\theta_2 \bm{k}\cross\right)\left(431.80 \bm{i} \right)\si{\mm} \\
-        \underline{C}_3 &= \underline{C}_2 \exp\left(\theta_3 \bm{k}\cross\right) \exp\left(\tfrac{\pi}{2}\bm{k}\cross\right)\exp\left(\tfrac{\pi}{2}\bm{i}\cross\right) 
-        \quad& \undertilde{\bm{o}_3} &=\undertilde{\bm{o}_2} +  \underline{C}_2\exp\left(\theta_3 \bm{k}\cross\right) \left(-149.09 \bm{k} + 20.32 \bm{j} \right)\si{\mm} \\
-        \underline{C}_4 &= \underline{C}_3 \exp\left(\theta_4 \bm{k}\cross\right) \exp\left(\tfrac{\pi}{2}\bm{i}\cross\right) 
-        \quad& \undertilde{\bm{o}_4} &=\undertilde{\bm{o}_3} +  \underline{C}_3\exp\left(\theta_4 \bm{k}\cross\right) \left(433.07 \bm{k} \right)\si{\mm} \\
-        \underline{C}_5 &= \underline{C}_4 \exp\left(\theta_5 \bm{k}\cross\right) \exp\left(-\tfrac{\pi}{2}\bm{i}\cross\right) 
-        \quad& \undertilde{\bm{o}_5} &=\undertilde{\bm{o}_4}\\
-        \underline{C}_6 &= \underline{C}_5 \exp\left(\theta_6 \bm{k}\cross\right) 
-         \quad& \undertilde{\bm{o}_6} &=\undertilde{\bm{o}_5} + \underline{C}_5\exp\left(\theta_6 \bm{k}\cross\right) \left(60.00 \bm{k} \right)\si{\mm}
-    \end{aligned}
-\end{equation}
+where the matrices $\prescript{i-1}{}{T}_i$ is given by
+\begin{equation}\label{eq:5transf}
+     \begin{aligned}
+        \prescript{0}{}{T}_1 &= \begin{bmatrix}
+            \exp\left(\theta_1 \bm{k}\cross\right)\exp\left(-\tfrac{\pi}{2}\bm{i}\cross\right) & \bm{0} \\ \bm{0}^\top & 1
+        \end{bmatrix} \\
+        \prescript{1}{}{T}_2 &= \begin{bmatrix}
+            \exp\left(\theta_2 \bm{k}\cross\right)\exp\left(\pi\bm{i}\cross\right) & \exp\left(\theta_2 \bm{k}\cross\right)\left(431.80 \bm{i} \right)\si{\mm} \\ \bm{0}^\top & 1
+        \end{bmatrix}\\
+        \prescript{2}{}{T}_3 &= \begin{bmatrix}
+             \exp\left(\theta_3 \bm{k}\cross\right) \exp\left(\tfrac{\pi}{2}\bm{k}\cross\right)\exp\left(\tfrac{\pi}{2}\bm{i}\cross\right) & \exp\left(\theta_3 \bm{k}\cross\right) \left(-149.09 \bm{k} + 20.32 \bm{j} \right)\si{\mm} \\ \bm{0}^\top & 1
+        \end{bmatrix}\\
+        \prescript{3}{}{T}_4 &= \begin{bmatrix}
+             \exp\left(\theta_4 \bm{k}\cross\right) \exp\left(\tfrac{\pi}{2}\bm{i}\cross\right) & \exp\left(\theta_4 \bm{k}\cross\right) \left(433.07 \bm{k} \right)\si{\mm} \\ \bm{0}^\top & 1
+        \end{bmatrix}\\
+        \prescript{4}{}{T}_5 &= \begin{bmatrix}
+            \exp\left(\theta_5 \bm{k}\cross\right) \exp\left(-\tfrac{\pi}{2}\bm{i}\cross\right) & \bm{0} \\ \bm{0}^\top & 1
+        \end{bmatrix} \\
+        \prescript{5}{}{T}_6 &= \begin{bmatrix}
+            \exp\left(\theta_6 \bm{k}\cross\right) & \exp\left(\theta_6 \bm{k}\cross\right) \left(60.00 \bm{k} \right)\si{\mm} \\ \bm{0}^\top & 1
+        \end{bmatrix}
+     \end{aligned}
+ \end{equation} 
+
+ Based on \eqref{eq:5rel} and \eqref{eq:5transf} we have the relationship between base $\{\undertilde{\bm{o}_0} , \underline{C}_0\}$ and the end effector $\{\undertilde{\bm{o}_6} , \underline{C}_6\}$ on the form presented by Salcudean's example 2.5.
 
 \subsection{} %5c
 Using the same recipe as in \eqref{eq:genrealJacobian} we can derive the Jacobian for the Puma 560 can be found by
@@ -385,7 +393,7 @@ Based on this Jacobian we see that we will not get any wrist singularities with 
 
 
 \subsection{}\label{ssec:5d} %5d
-The MATLAB code used to in \autoref{ssec:5d} is listed in \autoref{lst:5d1}. The user is prompted for six joint avariables, the Jacobian and the total homogenous transformation matrix is calculated aswell as the link origins is plotted by using the \mcode{plot3} command. As \autoref{fig:5d1} shows there are 5 different link origins, as expected by \eqref{eq:5btransformationchain} since origin 0 and 1, and 4 and 5 is the same point. These points are he origins when $\theta_i = 0 \enspace \forall i$.
+The MATLAB code used to in \autoref{ssec:5d} is listed in \autoref{lst:5d1}. The user is prompted for six joint avariables, the Jacobian and the total homogenous transformation matrix is calculated aswell as the link origins is plotted by using the \mcode{plot3} command. As \autoref{fig:5d1} shows there are 5 different link origins, as expected by \eqref{eq:5transf} since origin 0 and 1, and 4 and 5 is the same point. These points are he origins when $\theta_i = 0 \enspace \forall i$.
 \lstinputlisting[style = Matlab-editor, caption = MATLAB code used to generate homogenous transformation matrix for angles chosen by the user, captionpos = b, label = lst:5d1]{../../MATLAB/Assignment1/Ex5.m}
 \begin{figure}[ht!]
     \centering
