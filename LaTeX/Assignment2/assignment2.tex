@@ -1,40 +1,51 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{scrartcl}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{bm}
 \usepackage{biblatex}
+\usepackage{caption}
 \usepackage{float}
-\usepackage[colorlinks=true, urlcolor=cyan]{hyperref}
+\usepackage[colorlinks=true, allcolors=black, urlcolor=cyan]{hyperref}
 \usepackage{graphicx}
+\usepackage[framed,numbered]{matlab-prettifier}
 \usepackage{mathtools}
+\usepackage{mcode}
 \usepackage{physics}
 
 \renewcommand{\thesection}{}
 \renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}}
 
+\title{Assignment 2}
+\subtitle{ELEC 442 - Introduction to Robotics}
+\author{Sondre Myrberg (81113433) \and Ola Helbaek (68776772)}
+
+
 \setlength{\parindent}{0pt} % Disable indentation
 \mathtoolsset{showonlyrefs} % Only show equation numbers on referenced equations
+
+\def\undertilde#1{\mathord{\vtop{\ialign{##\crcr
+$\hfil\displaystyle{#1}\hfil$\crcr\noalign{\kern1.5pt\nointerlineskip}
+$\hfil\widetilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this undertilde
 
 
 \begin{document}
 
 \hypersetup{pageanchor=false}
 \begin{titlepage}
-    \centering
+    \maketitle
     \vfill
-    {\Large
-        {\Large ELEC 442 - Introduction to Robotics\\}
-        \vskip.5cm
-        {\huge Assignment 2\\
-        \vskip2cm
-        Sondre Myrberg\\
-        \href{mailto:sondrmyr@alumni.ubc.ca}{sondrmyr@alumni.ubc.ca}\\
-        81113433\\}
-    }
     \vfill
-    \includegraphics[width=0.95\textwidth]{ubc_logo.pdf}
+    \vfill
+    \vfill
+    \includegraphics[width=0.95\textwidth]{../../ubc_logo.pdf}
     \vfill
     \vfill
 \end{titlepage}
 \hypersetup{pageanchor=true}
+
+\section{Solving the inverse kinematics problem for the PUMA 560 robot}
+
+For the first angle, $\theta_1$ we know that it only depends on the origin of the spherical wrist, $\undertilde{o_4}$. Given this we can use the implemented function \mcode{KahanP2} with $s = \bm{k}_0$, $\hat{\bm{u}} = \bm{i}_0$ and $\bm{w} = \undertilde{o_4}-\undertilde{o_0}$. The function is implemented as shown in \autoref{lst:KahanP2}. In this implementation the function itself normalizes the vectors such that we do not have to think about feeding this into the function. 
+
+\lstinputlisting[style=Matlab-editor, caption=MATLAB implementation of the Kahan P2 problem, captionpos = b, label=lst:KahanP2]{../../MATLAB/Assignment2/KahanP2.m}
 
 \end{document}
