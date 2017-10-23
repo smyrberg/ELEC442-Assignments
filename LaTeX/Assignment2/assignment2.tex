@@ -10,6 +10,8 @@
 \usepackage{mathtools}
 \usepackage{mcode}
 \usepackage{physics}
+\usepackage{siunitx}
+\usepackage{cancel}
 
 \renewcommand{\thesection}{}
 \renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}}
@@ -25,6 +27,7 @@
 \def\undertilde#1{\mathord{\vtop{\ialign{##\crcr
 $\hfil\displaystyle{#1}\hfil$\crcr\noalign{\kern1.5pt\nointerlineskip}
 $\hfil\widetilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this undertilde
+
 
 
 \begin{document}
@@ -44,7 +47,16 @@ $\hfil\widetilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this 
 
 \section{Solving the inverse kinematics problem for the PUMA 560 robot}
 
-For the first angle, $\theta_1$ we know that it only depends on the origin of the spherical wrist, $\undertilde{o_4}$. Given this we can use the implemented function \mcode{KahanP2} with $s = \bm{k}_0$, $\hat{\bm{u}} = \bm{i}_0$ and $\bm{w} = \undertilde{o_4}-\undertilde{o_0}$. The function is implemented as shown in \autoref{lst:KahanP2}. In this implementation the function itself normalizes the vectors such that we do not have to think about feeding this into the function. 
+For the first angle, $\theta_1$ we use that the centre of the spherical wrist, $\undertilde{o_4}$, compared to the $xy$-plane is only dependent on $\theta_1$. We also know that for $\theta_1 = 0$ $\undertilde{o_4}$ must be in the plane defined by $y - 149.09 \si{\mm} = 0$. This gives us the relation between $u$ and $w$, where $w$ is the vector between the origin and $\undertilde{o_4}$ and $u$ is the vector to where $\undertilde{o_4}$ would be if $\theta_1 = 0$, such that we kan use the inplemented function \mcode(KahanP2). The relation is given as
+\begin{equation}
+    \begin{aligned}
+        \norm{w}^2 = o_{4,x}^2 + o_{4,y}^2 + o_{4,z}^2 &= u_x^2 + u_y^2 + u_z^2 = \norm{u}^2\\
+        \implies o_{4,x}^2 + o_{4,y}^2 + \cancel{o_{4,z}^2} &= u_x^2 + 149.09^2 + \cancel{o_{4,z}^2} \quad &&\text{as desired $z$-value doesn't} \\
+        \implies u_x &= \sqrt{o_{4,x}^2 + o_{4,y}^2 - 149.09^2}                                             &&\text{change with $\theta_1$}
+    \end{aligned}
+\end{equation}
+
+Given this and that $\undertilde{o_0} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^\top$ we can use the implemented function \mcode{KahanP2} with $s = \bm{k}_0$, $\hat{\bm{u}} = \begin{bmatrix} u_x & 149.09 & o_{4,z} \end{bmatrix}$ and $\bm{w} = \undertilde{o_4}-\undertilde{o_0}$. The function is implemented as shown in \autoref{lst:KahanP2}. In this implementation the function itself normalizes the vectors such that we do not have to think about feeding this into the function. 
 
 \lstinputlisting[style=Matlab-editor, caption=MATLAB implementation of the Kahan P2 problem, captionpos = b, label=lst:KahanP2]{../../MATLAB/Assignment2/KahanP2.m}
 
