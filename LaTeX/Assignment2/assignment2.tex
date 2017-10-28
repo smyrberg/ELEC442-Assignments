@@ -60,4 +60,22 @@ Given this and that $\undertilde{o_0} = \begin{pmatrix} 0 & 0 & 0 \end{pmatrix}^
 
 \lstinputlisting[style=Matlab-editor, caption=MATLAB implementation of the Kahan P2 problem, captionpos = b, label=lst:KahanP2]{../../MATLAB/Assignment2/KahanP2.m}
 
+For $\theta_3$ we use the implementation of \mcode{KahanP4} given in \autoref{lst:KahanP4}. Here we use $a = \bm{o}_2 - \bm{o}_0$, $b = \bm{o}_4 - \bm{o}_2$ and $c = \bm{o}_4 - \bm{o}_0$ where all these are projected on to the $\bm{i}_1, \bm{j}_1$-plane since all change in $\theta_2$ and $\theta_3$ will only give a change in the position of $\undertilde{o_4}$ with respect to this plane. For the home position of the manipulator, we sill get a small angle for $\theta_3$. This angle is the offset of $\theta_3$ and is taken care of by doing \mcode{KahanP4} with the distances $a$, $b$ and $c$ as in the home postion and subtracting it from the solution shown over.  
+
+\lstinputlisting[style=Matlab-editor, caption=MATLAB implementation of the Kahan P4 problem, captionpos = b, label=lst:KahanP4]{../../MATLAB/Assignment2/KahanP4.m}
+
+For $\theta_2$ we used the law of cosine with the same triangle as for $\theta_3$. This would be less accurate for small angles, and probably not the best way to do this. \\
+
+After finding the angles of the arm, we use forward kinematics to identidy the wrist centre, as this is only dependent on the joint variables of the arm, in addition to the base frame $\underline{\bm{C}}_3$. We need $\underline{\bm{C}}_3$ in order to find the remaining joint angles. These can be found on the same way as shown in the lectures and is shown in \eqref{eq:wristKin}. 
+
+\begin{equation}\label{eq:wristKin}
+    \begin{aligned}
+        \underline{\bm{k}}_4 =& \pm\frac{\underline{\bm{k}}_3 \cross \underline{\bm{k}}_6}{\norm{\underline{\bm{k}}_3 \cross \underline{\bm{k}}_6}} &\\
+        \exp{(\pi-\theta_6) \underline{\bm{k}}_6\cross} \underline{\bm{j}}_6 =& \exp{-(\theta_6 - \pi) \underline{\bm{k}}_6\cross} \underline{\bm{j}}_6 &= \underline{\bm{k}}_4 \\
+       & \exp{(\theta_4 + \pi) \underline{\bm{k}}_3 \cross} \underline{\bm{j}}_3 &= \underline{\bm{k}}_4 \\
+       & \exp{\theta_5 \underline{\bm{k}}_4 \cross} \underline{\bm{k}}_3 &= \underline{\bm{k}}_6 
+    \end{aligned}
+\end{equation}
+With these four equations we can use \mcode{KahanP2} three times with the vectors from the equations as input, but since we didn't find any perticularly good solutions for $\theta_2$ and $\theta_3$ this has not been inplemented. The general form of a Kahan P2-problem solving for $\theta$ is however $\exp{\theta \hat{\underline{\bm{s}}}\cross} \hat{\underline{\bm{u}}} = \hat{ \underline{\bm{w}}}$, so we easily see from \eqref{eq:wristKin} which vectors to use as inputs in our \mcode{KahanP2}-function. This would obviously not give all solutions, but they can be found looking at joint restrictions and polarity. Joint 2 and 3 are good examples, as for a given location for $\undertilde{\bm{o}_4}$ we have two different ways of traversing from $\undertilde{\bm{o}_0}$, one with `elbow' up and one with `elbow' down.
+
 \end{document}
