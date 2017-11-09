@@ -1,0 +1,80 @@
+\documentclass[a4paper]{scrartcl}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\usepackage{biblatex}
+\usepackage{caption}
+\usepackage{float}
+\usepackage[colorlinks=true, allcolors=black, urlcolor=cyan]{hyperref}
+\usepackage{graphicx}
+\usepackage[framed,numbered]{matlab-prettifier}
+\usepackage{mathtools}
+\usepackage{mcode}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{cancel}
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}}
+
+\title{Assignment 3}
+\subtitle{ELEC 442 - Introduction to Robotics}
+\author{Sondre Myrberg (81113433) \and Ola Helbaek (68776772)}
+
+
+\setlength{\parindent}{0pt} % Disable indentation
+\mathtoolsset{showonlyrefs} % Only show equation numbers on referenced equations
+
+\def\undertilde#1{\mathord{\vtop{\ialign{##\crcr
+$\hfil\displaystyle{#1}\hfil$\crcr\noalign{\kern1.5pt\nointerlineskip}
+$\hfil\widetilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}} %Lousy way, but need this undertilde
+\newcommand{\me}[1]{\mathrm{e}^{#1}}
+
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+    \maketitle
+    \vfill
+    \vfill
+    \vfill
+    \vfill
+    \includegraphics[width=0.95\textwidth]{../../ubc_logo.pdf}
+    \vfill
+    \vfill
+\end{titlepage}
+\hypersetup{pageanchor=true}
+
+\section{Computation of representation}
+
+As we have the relationship between the initial frame $\underline{C}_i$ and the final frame $\underline{C}_f$ given as
+\begin{equation}
+    \begin{aligned}
+        \underline{C}_f &= \underline{\underline{R}}\underline{C}_i\\
+        &= \me{\theta \underline{\bm{s}}\cross}\underline{C}_i
+    \end{aligned}
+\end{equation}
+we could rearrange this as
+\begin{equation}
+    \begin{aligned}
+        \underline{C}_f &= \underline{C}_i R\\
+         &= \underline{C}_i \me{\theta\bm{s}\cross}
+    \end{aligned}
+\end{equation}
+where
+\begin{equation}
+    R = \begin{bmatrix}
+        r_{11} & r_{12} & r_{13} \\  r_{21} & r_{22} & r_{23} \\  r_{31} & r_{32} & r_{33}
+    \end{bmatrix}
+\end{equation}
+as given in the text. This gives us the relationship
+\begin{equation}
+    \begin{aligned}
+        \me{\theta\bm{s}\cross} = \begin{bmatrix}
+        r_{11} & r_{12} & r_{13} \\  r_{21} & r_{22} & r_{23} \\  r_{31} & r_{32} & r_{33}
+    \end{bmatrix}
+    \end{aligned}
+\end{equation}
+which we want to solve for $\bm{s}$.
+
+\end{document}
