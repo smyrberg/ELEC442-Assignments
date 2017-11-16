@@ -75,6 +75,96 @@ as given in the text. This gives us the relationship
     \end{bmatrix}
     \end{aligned}
 \end{equation}
-which we want to solve for $\bm{s}$.
+which we want to solve for $\bm{s}$. Firstly use that
+\begin{equation}
+    \begin{aligned}
+         \me{\theta\bm{s}\cross} &= \sum_{n=0}^{\infty}\frac{(\theta \bm{s}\cross)^n}{n!}\\
+         &= \bm{I} + (\theta \bm{s}\cross) + \frac{1}{2!}(\theta \bm{s}\cross)^2 + \hdots
+    \end{aligned}
+\end{equation}
+and with the property that $(\bm{s}\cross)^3 = - (\bm{s}\cross)$ for a skew-symmetric matrix we get
+\begin{equation}
+    \begin{aligned}
+        \me{\theta\bm{s}\cross} &= \bm{I} + \underbrace{\left(\theta - \frac{\theta^3}{3!} + \frac{\theta^5}{5!} - \hdots \right)}_{= \sin\theta}(\bm{s}\cross)
+        + \underbrace{\left(\frac{\theta^2}{2!} - \frac{\theta^4}{4!} +\frac{\theta^6}{6!} - \hdots \right)}_{= 1- \cos\theta}(\bm{s}\cross)^2\\
+        &= \bm{I} + \sin\theta(\bm{s}\cross) + (1-\cos\theta)(\bm{s}\cross)^2
+        = R
+    \end{aligned}
+\end{equation}
+With
+\begin{equation}
+    \bm{s}\cross = \begin{bmatrix}
+        0 & -s_3 & s_2\\
+        s_3 & 0 & -s_1\\
+        -s_2 & s_1 & 0
+    \end{bmatrix}
+\end{equation}
+and
+\begin{equation}
+    (\bm{s}\cross)^2 = \left[\begin{array}{ccc}  - {s_{2}}^2 - {s_{3}}^2 & s_{1}\, s_{2} & s_{1}\, s_{3}\\ s_{1}\, s_{2} &  - {s_{1}}^2 - {s_{3}}^2 & s_{2}\, s_{3}\\ s_{1}\, s_{3} & s_{2}\, s_{3} &  - {s_{1}}^2 - {s_{2}}^2 \end{array}\right]
+\end{equation}
+we get 
+\begin{equation}
+    \begin{aligned}
+        \Tr(R) &= \Tr(\bm{I}) + \cancel{\Tr(\sin\theta(\bm{s}\cross))} + \Tr((1-\cos\theta)(\bm{s}\cross)^2)\\
+        \implies r_{11} + r_{22} + r_{33} &= 3 +(1-\cos\theta)\underbrace{(-2s_1^2 -2s_2^2 -2s_3^2)}_{=-2}\\
+        \implies \cos\theta &= \frac{r_{11} + r_{22} + r_{33} -1}{2}
+    \end{aligned}
+\end{equation}
+and
+\begin{equation}
+    \begin{aligned}
+        \begin{bmatrix}
+            r_{11} & r_{12} & r_{13} \\  r_{21} & r_{22} & r_{23} \\  r_{31} & r_{32} & r_{33}
+        \end{bmatrix} &= \begin{bmatrix}
+            1 & 0& 0\\ 0&1 & 0 \\ 0& 0& 1
+        \end{bmatrix} + 
+        \sin\theta\begin{bmatrix}
+            0 & -s_3 & s_2\\
+        s_3 & 0 & -s_1\\
+        -s_2 & s_1 & 0
+        \end{bmatrix}\\ &+ 
+        (1-\cos\theta) \begin{bmatrix}
+             - {s_{2}}^2 - {s_{3}}^2 & s_{1}\, s_{2} & s_{1}\, s_{3}\\
+             s_{1}\, s_{2} &  - {s_{1}}^2 - {s_{3}}^2 & s_{2}\, s_{3}\\
+             s_{1}\, s_{3} & s_{2}\, s_{3} &  - {s_{1}}^2 - {s_{2}}^2
+        \end{bmatrix} \\
+        \implies &\begin{cases}
+            r_{21} &= \sin\theta s_3 + (1-\cos\theta)s_1s_2\\
+            r_{12} &= -\sin\theta s_3 + (1-\cos\theta)s_1s_2\\
+            r_{13} &= \sin\theta s_2 + (1-\cos\theta)s_1s_3\\
+            r_{31} &= -\sin\theta s_2 + (1-\cos\theta)s_1s_3\\
+            r_{32} &= \sin\theta s_1 + (1-\cos\theta)s_2s_3\\
+            r_{23} &= -\sin\theta s_1 + (1-\cos\theta)s_2s_3\\
+        \end{cases}
+    \end{aligned}
+\end{equation}
+By doing subtractions we get 
+\begin{equation}
+    \begin{aligned} 
+        2\sin\theta\begin{bmatrix}
+              s_1\\s_2\\s_3
+        \end{bmatrix} &=
+        \begin{bmatrix}
+            r_{32} - r_{23}\\
+            r_{13} - r_{31}\\
+            r_{21} - r_{12}
+        \end{bmatrix}
+    \end{aligned}
+\end{equation}
+and connect this to three equations on the form
+\begin{equation}
+    \begin{aligned}
+        \tan\theta = \frac{\sin\theta}{\cos\theta} &= \frac{\tfrac{r_{32} - r_{23}}{2s_1}}{\tfrac{r_{11} + r_{22} + r_{33} -1}{2}} = \frac{r_{32} - r_{23}}{s_1(r_{11} + r_{22} + r_{33} -1)}\\
+        &= \frac{\tfrac{r_{13} - r_{31}}{2s_2}}{\tfrac{r_{11} + r_{22} + r_{33} -1}{2}} = \frac{r_{13} - r_{31}}{s_2(r_{11} + r_{22} + r_{33} -1)}\\
+        &= \frac{\tfrac{r_{21} - r_{12}}{2s_3}}{\tfrac{r_{11} + r_{22} + r_{33} -1}{2}} = \frac{r_{21} - r_{12}}{s_3(r_{11} + r_{22} + r_{33} -1)}\\
+        \implies \bm{s} &= \underline{\frac{1}{\tan\theta(r_{11} + r_{22} + r_{33} -1)} \begin{bmatrix}
+            r_{32} - r_{23}\\
+            r_{13} - r_{31}\\
+            r_{21} - r_{12}
+        \end{bmatrix}}
+    \end{aligned}
+\end{equation}
+
 
 \end{document}
