@@ -169,4 +169,24 @@ and connect this to three equations on the form
 In the special case of $\sin\theta = 0$ we know that $\theta = n\pi$. For $n$ even we get $\me{\theta \bm{s}\cross}v = v$, and for $n$ odd we get that $\me{\theta \bm{s}\cross}v = -v$. This applies to all $\bm{s}$ and all $\theta=n\pi$ where $n \in \mathbb{Z}$.
 
 
+\section{Trajectory generation}
+
+Using the fuction \mcode{forward_kinematics} defined in \autoref{lst:2_1} we get the initial end effector position and orientation with 
+$q(0) = \begin{bmatrix}
+    0 & 0 & 90 & 0 &90 &0
+\end{bmatrix}$ given as 
+\begin{equation}
+    C_6 = \begin{bmatrix}
+        0 & 0 & 1 \\ 0 & -1 & 0 \\ 1 & 0 & 0
+    \end{bmatrix} \quad
+    \undertilde{o_6} = \begin{bmatrix}
+        471.48 \\ 149.09 \\ 433.07
+    \end{bmatrix}
+\end{equation}
+
+\lstinputlisting[style=Matlab-editor, caption=MATLAB code to do forward kinematics, captionpos = b, label=lst:2_1]{../../MATLAB/Assignment3/forward_kinematics.m}
+
+Further we should use equation (25) and (26) from the notes, but we couldn't find a way to do this properly stepwise or without using inverse kinematics on wach step. We ended up with circular dependencies all the way, but have sort of a framework for the matlab script, given in \autoref{lst:2_2}. So this is how far we got.
+
+\lstinputlisting[style=Matlab-editor, caption=MATLAB framwork for assignment 3, captionpos = b, label=lst:2_2]{../../MATLAB/Assignment3/assignment3.m}
 \end{document}

@@ -1,6 +1,6 @@
 close all
-clear all
-clc 
+clear variables
+clc
 
 %% 5d
 i = [1;0;0];
