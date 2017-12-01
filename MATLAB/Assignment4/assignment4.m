@@ -9,12 +9,24 @@ m2 = 1;
 g = 9.81;
 tau_1 = 0;
 tau_2 = 0;
-Kp = diag([1 1]);
+
+%% Joint space control
+%Kp = diag([1 1]);
 Kv = diag([2 2]);
 x_init = [-pi/2;0;0;0];
 q_d = [0; pi/2];
 sim('assgt4');
 
+%% Stiffness control
+q_d = [0; pi/2]; %needed because of block structure but doesnt affect stiffness controller
+% Kp = diag([1 1]); 
+% Kp = diag([0.2 1]); 
+Kp = diag([1 0.2]);
+Kv = diag([2 2]);
+x_init = [-pi/2;0;0;0];
+o0 = [0 0]'; C0 = eye(2);
+od = C0*[1 1]'; od_dot = [0 0]';
+sim('assgt4');
 
 %% Plot
 figure
